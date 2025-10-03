@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="fr" class="h-full bg-slate-900">
+<html
+  lang="fr"
+  class="h-full bg-gradient-to-b from-brand-peachPink via-brand-apricot to-brand-lavender">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,7 +12,17 @@
       tailwind.config = {
         theme: {
           extend: {
-            colors: { primary: "#0ea5e9", dark: "#0b1220" },
+            colors: {
+              /* Nouvelle palette */
+              primary: "#D5AAFF",
+              brand: {
+                peachPink: "#FAD0C9",
+                peachLight: "#FAD6A5",
+                coral: "#FFABAB",
+                apricot: "#FFC3A0",
+                lavender: "#D5AAFF",
+              },
+            },
             keyframes: {
               fadeInUp: {
                 "0%": { opacity: 0, transform: "translateY(8px)" },
@@ -22,11 +34,29 @@
         },
       };
     </script>
+
+    <!-- Réduction des mouvements si l’utilisateur l’a demandé -->
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+
     <link rel="icon" href="./assets/img/logo.jfif" />
   </head>
-  <body class="min-h-full text-slate-100 antialiased">
+  <body class="min-h-full text-slate-900 antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 bg-primary text-slate-900 px-3 py-2 rounded">
+      Aller au contenu
+    </a>
+
     <!-- Header -->
-    <header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-900/90 backdrop-blur">
+    <header class="sticky top-0 z-40 border-b border-brand-lavender/60 bg-white/70 backdrop-blur">
       <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
         <a href="./" class="flex items-center gap-3">
           <img
@@ -52,30 +82,34 @@
           <h1 class="text-3xl md:text-5xl font-bold leading-tight">
             Des interfaces modernes et rapides
           </h1>
-          <p class="mt-4 text-slate-300 text-lg">
+          <p class="mt-4 text-slate-700 text-lg">
             Découvrez nos projets clients. Filtrez par technologie. Ouvrez un projet pour voir ses
             détails.
           </p>
         </div>
         <div class="justify-self-end hidden lg:block animate-fadeInUp">
           <img
-            src="./assets/img/hero-placeholder.png"
+            src="./assets/img/hero-placeholder.jfif"
             alt="Illustration d'interface"
-            class="w-full max-w-md opacity-90" />
+            class="w-full max-w-md opacity-90 rounded-xl ring-1 ring-brand-lavender/50"
+            loading="lazy"
+            decoding="async" />
         </div>
       </div>
     </section>
 
     <!-- Filtres -->
-    <section class="mx-auto max-w-7xl px-4 pb-4">
+    <section class="mx-auto max-w-7xl px-4 pb-2">
       <div class="flex flex-wrap items-center gap-2" id="filters" aria-label="Filtres technologies">
         <!-- Boutons filtres insérés par JS -->
       </div>
+      <!-- Région live qui annonce le nombre de projets affichés -->
+      <p id="resultCount" class="sr-only" aria-live="polite"></p>
     </section>
 
     <!-- Loader et Erreurs -->
     <section class="mx-auto max-w-7xl px-4">
-      <div id="loader" class="hidden py-10 flex items-center justify-center">
+      <div id="loader" class="hidden py-10 flex items-center justify-center" aria-live="polite">
         <svg class="h-8 w-8 animate-spin" viewBox="0 0 24 24" aria-hidden="true">
           <circle
             class="opacity-25"
@@ -90,33 +124,40 @@
       </div>
       <div
         id="error"
-        class="hidden my-4 rounded-md border border-red-500/40 bg-red-500/10 p-3 text-red-200"
+        class="hidden my-4 rounded-md border border-red-300 bg-red-100 p-3 text-red-700"
         role="alert"></div>
       <div
         id="toast"
-        class="hidden my-4 rounded-md border border-slate-700 bg-slate-800 p-3 text-slate-200"
+        class="hidden my-4 rounded-md border border-brand-lavender/60 bg-white/70 p-3 text-slate-800"
         role="status"></div>
     </section>
 
     <!-- Grille de projets -->
-    <main class="mx-auto max-w-7xl px-4 pb-16">
-      <div id="grid" class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <main id="main" class="mx-auto max-w-7xl px-4 pb-16" tabindex="-1">
+      <div
+        id="grid"
+        class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        aria-describedby="resultCount">
         <!-- Cartes projets insérées par JS -->
       </div>
     </main>
 
     <!-- Modal projet -->
     <div id="projectModal" class="fixed inset-0 z-50 hidden" aria-hidden="true">
-      <div id="modalOverlay" class="absolute inset-0 bg-black/60"></div>
+      <div id="modalOverlay" class="absolute inset-0 bg-black/40"></div>
       <div
-        class="relative mx-auto mt-10 w-[92%] max-w-3xl rounded-2xl bg-slate-900 shadow-2xl ring-1 ring-slate-700">
-        <div class="flex items-start justify-between p-5 border-b border-slate-800">
+        class="relative mx-auto mt-10 w-[92%] max-w-3xl rounded-2xl bg-white shadow-2xl ring-1 ring-brand-lavender/60"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle">
+        <div class="flex items-start justify-between p-5 border-b border-brand-lavender/50">
           <h2 id="modalTitle" class="text-xl font-semibold">Détails du projet</h2>
           <button
             id="modalClose"
-            class="ml-3 rounded-full p-2 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-primary"
+            type="button"
+            class="ml-3 rounded-full p-2 hover:bg-brand-peachPink/40 focus:outline-none focus:ring-2 focus:ring-primary"
             aria-label="Fermer le modal">
-            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path
                 fill-rule="evenodd"
                 d="M10 8.586l4.95-4.95 1.414 1.414L11.414 10l4.95 4.95-1.414 1.414L10 11.414l-4.95 4.95-1.414-1.414L8.586 10l-4.95-4.95L5.05 3.636 10 8.586z"
@@ -129,9 +170,10 @@
             id="modalImage"
             src=""
             alt=""
-            class="w-full rounded-lg border border-slate-800 object-cover" />
-          <p id="modalDesc" class="text-slate-300"></p>
-          <ul id="modalFeatures" class="list-disc list-inside space-y-1 text-slate-200"></ul>
+            class="w-full rounded-lg border border-brand-lavender/50 object-cover"
+            decoding="async" />
+          <p id="modalDesc" class="text-slate-800"></p>
+          <ul id="modalFeatures" class="list-disc list-inside space-y-1 text-slate-800"></ul>
           <div id="modalBadges" class="flex flex-wrap gap-2"></div>
           <a
             id="modalLink"
@@ -142,10 +184,11 @@
             >Visiter le site</a
           >
         </div>
-        <div class="p-4 border-t border-slate-800 text-right">
+        <div class="p-4 border-t border-brand-lavender/50 text-right">
           <button
             id="modalCloseBottom"
-            class="rounded-lg border border-slate-700 px-4 py-2 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-primary">
+            type="button"
+            class="rounded-lg border border-brand-peachLight/70 px-4 py-2 hover:bg-brand-peachPink/40 focus:outline-none focus:ring-2 focus:ring-primary">
             Fermer
           </button>
         </div>
@@ -153,10 +196,10 @@
     </div>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-800 bg-slate-900">
+    <footer class="border-t border-brand-lavender/60 bg-white/70 backdrop-blur">
       <div
         class="mx-auto max-w-7xl px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-3">
-        <p class="text-sm text-slate-400">
+        <p class="text-sm text-slate-700">
           © <span id="year"></span> WebCraft Solutions. Tous droits réservés.
         </p>
         <div class="flex items-center gap-4 text-sm">

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="fr" class="h-full bg-slate-900">
+<html
+  lang="fr"
+  class="h-full bg-gradient-to-b from-brand-peachPink via-brand-apricot to-brand-lavender">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,16 +12,43 @@
       tailwind.config = {
         theme: {
           extend: {
-            colors: { primary: "#0ea5e9", dark: "#0b1220" },
+            colors: {
+              primary: "#D5AAFF",
+              brand: {
+                peachPink: "#FAD0C9",
+                peachLight: "#FAD6A5",
+                coral: "#FFABAB",
+                apricot: "#FFC3A0",
+                lavender: "#D5AAFF",
+              },
+            },
           },
         },
       };
     </script>
+
+    <!-- Réduction des mouvements -->
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+
     <link rel="icon" href="./assets/img/logo.jfif" />
   </head>
-  <body class="min-h-full text-slate-100 antialiased">
+  <body class="min-h-full text-slate-900 antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 bg-primary text-slate-900 px-3 py-2 rounded">
+      Aller au contenu
+    </a>
+
     <!-- Header -->
-    <header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-900/90 backdrop-blur">
+    <header class="sticky top-0 z-40 border-b border-brand-lavender/60 bg-white/70 backdrop-blur">
       <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
         <a href="./" class="flex items-center gap-3">
           <img
@@ -45,17 +74,17 @@
     <!-- Hero -->
     <section class="mx-auto max-w-3xl px-4 pt-10 pb-6">
       <h1 class="text-3xl md:text-4xl font-bold">Contact</h1>
-      <p class="mt-3 text-slate-300">
-        Écrivez nous via ce formulaire. Les champs sont obligatoires.
+      <p class="mt-3 text-slate-700">
+        Écrivez-nous via ce formulaire. Les champs sont obligatoires.
       </p>
     </section>
 
     <!-- Form -->
-    <main class="mx-auto max-w-3xl px-4 pb-16">
+    <main id="main" class="mx-auto max-w-3xl px-4 pb-16" tabindex="-1">
       <form
         id="contactForm"
         novalidate
-        class="space-y-5 rounded-2xl border border-slate-800 bg-slate-900 p-6">
+        class="space-y-5 rounded-2xl border border-brand-lavender/60 bg-white/80 p-6 backdrop-blur">
         <div>
           <label for="name" class="block text-sm mb-2">Nom</label>
           <input
@@ -63,9 +92,9 @@
             name="name"
             type="text"
             required
-            class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 outline-none focus:ring-2 focus:ring-primary"
+            class="w-full rounded-lg border border-brand-peachLight/70 bg-white/70 px-4 py-2 outline-none focus:ring-2 focus:ring-primary"
             placeholder="Votre nom" />
-          <p class="mt-1 text-sm text-red-300 hidden" id="err-name"></p>
+          <p class="mt-1 text-sm text-red-600 hidden" id="err-name"></p>
         </div>
 
         <div>
@@ -75,9 +104,9 @@
             name="email"
             type="email"
             required
-            class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 outline-none focus:ring-2 focus:ring-primary"
+            class="w-full rounded-lg border border-brand-peachLight/70 bg-white/70 px-4 py-2 outline-none focus:ring-2 focus:ring-primary"
             placeholder="vous@exemple.com" />
-          <p class="mt-1 text-sm text-red-300 hidden" id="err-email"></p>
+          <p class="mt-1 text-sm text-red-600 hidden" id="err-email"></p>
         </div>
 
         <div>
@@ -87,9 +116,9 @@
             name="message"
             rows="5"
             required
-            class="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 outline-none focus:ring-2 focus:ring-primary"
+            class="w-full rounded-lg border border-brand-peachLight/70 bg-white/70 px-4 py-2 outline-none focus:ring-2 focus:ring-primary"
             placeholder="Votre message"></textarea>
-          <p class="mt-1 text-sm text-red-300 hidden" id="err-message"></p>
+          <p class="mt-1 text-sm text-red-600 hidden" id="err-message"></p>
         </div>
 
         <div class="flex items-center justify-between">
@@ -98,16 +127,16 @@
             class="rounded-lg bg-primary px-5 py-2 font-medium text-slate-900 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary">
             Envoyer
           </button>
-          <p id="formSuccess" class="hidden text-sm text-emerald-300">Message envoyé. Merci.</p>
+          <p id="formSuccess" class="hidden text-sm text-emerald-700">Message envoyé. Merci.</p>
         </div>
       </form>
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-800 bg-slate-900">
+    <footer class="border-t border-brand-lavender/60 bg-white/70 backdrop-blur">
       <div
         class="mx-auto max-w-7xl px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-3">
-        <p class="text-sm text-slate-400">
+        <p class="text-sm text-slate-700">
           © <span id="year"></span> WebCraft Solutions. Tous droits réservés.
         </p>
         <div class="flex items-center gap-4 text-sm">
@@ -120,7 +149,6 @@
 
     <script type="module">
       import "./js/form.js";
-      // année footer
       document.getElementById("year").textContent = new Date().getFullYear();
     </script>
   </body>
