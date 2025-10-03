@@ -30,21 +30,28 @@ export function initModal() {
 
 export function openProjectModal(p) {
   titleEl.textContent = p.title || "Détails du projet";
-  imgEl.src = p.image || "";
+
+  // Fallback non-vide si aucune image n'est fournie
+  imgEl.src = p.image || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
   imgEl.alt = `Aperçu du projet ${p.title || ""}`;
+
   descEl.textContent = p.description || "Pas de description disponible.";
+
+  // Badges technos avec la palette pastel
   badgesEl.innerHTML = (p.technologies || [])
     .map(
       (t) =>
-        `<span class="inline-flex items-center rounded-full bg-slate-800 border border-slate-700 px-2 py-0.5 text-xs">${escapeHtml(
+        `<span class="inline-flex items-center rounded-full bg-brand-peachLight/60 border border-brand-apricot/70 px-2 py-0.5 text-xs text-slate-900">${escapeHtml(
           t
         )}</span>`
     )
     .join(" ");
+
   featuresEl.innerHTML =
     Array.isArray(p.features) && p.features.length
       ? p.features.map((f) => `<li>${escapeHtml(f)}</li>`).join("")
       : `<li>Fonctionnalités non précisées.</li>`;
+
   if (p.url) {
     linkEl.href = p.url;
     linkEl.classList.remove("pointer-events-none", "opacity-50");
