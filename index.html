@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-900">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WebCraft Solutions — Portfolio</title>
+    <meta name="description" content="Portfolio interactif WebCraft Solutions" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#0ea5e9", dark: "#0b1220" },
+            keyframes: {
+              fadeInUp: {
+                "0%": { opacity: 0, transform: "translateY(8px)" },
+                "100%": { opacity: 1, transform: "translateY(0)" },
+              },
+            },
+            animation: { fadeInUp: "fadeInUp .6s ease both" },
+          },
+        },
+      };
+    </script>
+    <link rel="icon" href="./assets/img/logo.jfif" />
+  </head>
+  <body class="min-h-full text-slate-100 antialiased">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-900/90 backdrop-blur">
+      <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+        <a href="./" class="flex items-center gap-3">
+          <img
+            src="./assets/img/logo.jfif"
+            alt="Logo WebCraft Solutions"
+            class="h-9 w-9 object-contain" />
+          <span class="text-lg font-semibold">WebCraft Solutions</span>
+        </a>
+        <nav aria-label="Navigation principale">
+          <ul class="flex items-center gap-6">
+            <li><a aria-current="page" href="./" class="text-primary font-medium">Accueil</a></li>
+            <li><a href="./about.html" class="hover:text-primary transition">À propos</a></li>
+            <li><a href="./contact.html" class="hover:text-primary transition">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="mx-auto max-w-7xl px-4 pt-10 pb-8">
+      <div class="grid gap-6 lg:grid-cols-2 items-center">
+        <div class="animate-fadeInUp">
+          <h1 class="text-3xl md:text-5xl font-bold leading-tight">
+            Des interfaces modernes et rapides
+          </h1>
+          <p class="mt-4 text-slate-300 text-lg">
+            Découvrez nos projets clients. Filtrez par technologie. Ouvrez un projet pour voir ses
+            détails.
+          </p>
+        </div>
+        <div class="justify-self-end hidden lg:block animate-fadeInUp">
+          <img
+            src="./assets/img/hero-placeholder.png"
+            alt="Illustration d'interface"
+            class="w-full max-w-md opacity-90" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Filtres -->
+    <section class="mx-auto max-w-7xl px-4 pb-4">
+      <div class="flex flex-wrap items-center gap-2" id="filters" aria-label="Filtres technologies">
+        <!-- Boutons filtres insérés par JS -->
+      </div>
+    </section>
+
+    <!-- Loader et Erreurs -->
+    <section class="mx-auto max-w-7xl px-4">
+      <div id="loader" class="hidden py-10 flex items-center justify-center">
+        <svg class="h-8 w-8 animate-spin" viewBox="0 0 24 24" aria-hidden="true">
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+        </svg>
+        <span class="ml-3">Chargement des projets...</span>
+      </div>
+      <div
+        id="error"
+        class="hidden my-4 rounded-md border border-red-500/40 bg-red-500/10 p-3 text-red-200"
+        role="alert"></div>
+      <div
+        id="toast"
+        class="hidden my-4 rounded-md border border-slate-700 bg-slate-800 p-3 text-slate-200"
+        role="status"></div>
+    </section>
+
+    <!-- Grille de projets -->
+    <main class="mx-auto max-w-7xl px-4 pb-16">
+      <div id="grid" class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <!-- Cartes projets insérées par JS -->
+      </div>
+    </main>
+
+    <!-- Modal projet -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+      <div id="modalOverlay" class="absolute inset-0 bg-black/60"></div>
+      <div
+        class="relative mx-auto mt-10 w-[92%] max-w-3xl rounded-2xl bg-slate-900 shadow-2xl ring-1 ring-slate-700">
+        <div class="flex items-start justify-between p-5 border-b border-slate-800">
+          <h2 id="modalTitle" class="text-xl font-semibold">Détails du projet</h2>
+          <button
+            id="modalClose"
+            class="ml-3 rounded-full p-2 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-primary"
+            aria-label="Fermer le modal">
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                fill-rule="evenodd"
+                d="M10 8.586l4.95-4.95 1.414 1.414L11.414 10l4.95 4.95-1.414 1.414L10 11.414l-4.95 4.95-1.414-1.414L8.586 10l-4.95-4.95L5.05 3.636 10 8.586z"
+                clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+        <div class="max-h-[70vh] overflow-y-auto p-5 space-y-4">
+          <img
+            id="modalImage"
+            src=""
+            alt=""
+            class="w-full rounded-lg border border-slate-800 object-cover" />
+          <p id="modalDesc" class="text-slate-300"></p>
+          <ul id="modalFeatures" class="list-disc list-inside space-y-1 text-slate-200"></ul>
+          <div id="modalBadges" class="flex flex-wrap gap-2"></div>
+          <a
+            id="modalLink"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 font-medium text-slate-900 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary"
+            >Visiter le site</a
+          >
+        </div>
+        <div class="p-4 border-t border-slate-800 text-right">
+          <button
+            id="modalCloseBottom"
+            class="rounded-lg border border-slate-700 px-4 py-2 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-primary">
+            Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-900">
+      <div
+        class="mx-auto max-w-7xl px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p class="text-sm text-slate-400">
+          © <span id="year"></span> WebCraft Solutions. Tous droits réservés.
+        </p>
+        <div class="flex items-center gap-4 text-sm">
+          <a href="#" class="hover:text-primary">Twitter</a>
+          <a href="#" class="hover:text-primary">LinkedIn</a>
+          <a href="#" class="hover:text-primary">Dribbble</a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
