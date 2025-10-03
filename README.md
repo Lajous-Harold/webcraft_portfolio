@@ -62,15 +62,15 @@ Les trois pages **passent sans erreur ni warning** (Nu Html Checker). Captures :
 
 ### index.html
 
-![W3C validation — index](w3c/capture1.png)
+![W3C validation — index](w3c/Capture1.PNG)
 
 ### contact.html
 
-![W3C validation — contact](w3c/capture2.png)
+![W3C validation — contact](w3c/Capture2.PNG)
 
 ### about.html
 
-![W3C validation — about](w3c/capture3.png)
+![W3C validation — about](w3c/Capture3.PNG)
 
 ---
 
