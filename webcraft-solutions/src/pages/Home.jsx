@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import useFetch from "../hooks/UseFetch.jsx";
+import useFetch from "../hooks/useFetch.jsx";
 import Hero from "../components/Hero.jsx";
 import Loader from "../components/Loader.jsx";
 import Modal from "../components/Modal.jsx";
@@ -76,7 +76,7 @@ export default function Home() {
         <div className='container'>
           <header className='section__header'>
             <h2>Projets</h2>
-            <p>Vitrine des réalisations clients (API).</p>
+            <p>Vitrine des réalisations clients.</p>
           </header>
 
           <div className='toolbar' role='group' aria-labelledby='projets-tools-title'>
@@ -131,7 +131,19 @@ export default function Home() {
       <Modal
         open={Boolean(openProject)}
         title={openProject?.title}
-        onClose={() => setOpenProject(null)}>
+        onClose={() => setOpenProject(null)}
+        footer={
+          <div className='flex gap-2'>
+            {openProject?.url && (
+              <a className='btn btn--primary' href={openProject.url} target='_blank' rel='noopener'>
+                Visiter le site
+              </a>
+            )}
+            <button className='btn' onClick={() => setOpenProject(null)}>
+              Fermer
+            </button>
+          </div>
+        }>
         {openProject && (
           <>
             <img
@@ -161,11 +173,6 @@ export default function Home() {
                 <span className='badge badge--status'>{openProject.category}</span>
               )}
             </div>
-            {openProject.url && (
-              <a className='btn btn--primary' href={openProject.url} target='_blank' rel='noopener'>
-                Visiter le site
-              </a>
-            )}
           </>
         )}
       </Modal>
@@ -175,7 +182,7 @@ export default function Home() {
         <div className='container'>
           <header className='section__header'>
             <h2>Formations</h2>
-            <p>Catalogue interne (API).</p>
+            <p>Catalogue interne.</p>
           </header>
 
           <div className='toolbar' role='group' aria-labelledby='courses-tools-title'>
@@ -238,7 +245,17 @@ export default function Home() {
       <Modal
         open={Boolean(openCourse)}
         title={openCourse?.title}
-        onClose={() => setOpenCourse(null)}>
+        onClose={() => setOpenCourse(null)}
+        footer={
+          <div className='flex gap-2'>
+            <a className='btn btn--primary' href='/inscription'>
+              S'inscrire maintenant
+            </a>
+            <button className='btn' onClick={() => setOpenCourse(null)}>
+              Fermer
+            </button>
+          </div>
+        }>
         {openCourse && (
           <>
             <img
@@ -266,9 +283,6 @@ export default function Home() {
               )}
             </ul>
             {openCourse.trainer && <p className='muted'>Formateur : {openCourse.trainer}</p>}
-            <a className='btn btn--primary' href='/inscription'>
-              S'inscrire maintenant
-            </a>
           </>
         )}
       </Modal>

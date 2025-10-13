@@ -294,6 +294,7 @@ main {
 /* ===== Modal ===== */
 .modal {
   @apply fixed inset-0 z-50 hidden;
+  overflow-y: auto;
 }
 .modal[aria-hidden="false"] {
   @apply block;
@@ -301,18 +302,29 @@ main {
 .modal__overlay {
   @apply absolute inset-0 bg-black/45;
 }
+
 .modal__dialog {
-  @apply relative z-10 max-w-[760px] mx-auto my-10 rounded-xl border;
+  @apply relative z-10 max-w-[760px] mx-auto rounded-xl border;
+  margin: 1rem auto;
   background: var(--surface);
   border-color: var(--border);
   box-shadow: var(--shadow);
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
 }
+
 .modal__header {
   @apply flex items-center justify-between px-3 py-2 border-b;
   border-color: var(--border);
 }
 .modal__body {
   @apply p-3;
+  /* ✅ zone scrollable */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto;
 }
 .modal__footer {
   @apply flex items-center justify-end px-3 py-2 border-t;
@@ -321,6 +333,10 @@ main {
 .modal__image {
   @apply w-full rounded-xl border object-cover;
   border-color: var(--border);
+}
+
+.modal-open {
+  overflow: hidden;
 }
 
 /* ===== Footer ===== */

@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 
 export default function Modal({ open, title, onClose, children, footer }) {
   const dialogRef = useRef(null);
+
+  // Fermer avec Échap
   useEffect(() => {
     function onKey(e) {
       if (e.key === "Escape") onClose?.();
@@ -10,10 +12,18 @@ export default function Modal({ open, title, onClose, children, footer }) {
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
+  // Focus initial dans le dialog
   useEffect(() => {
     if (!open) return;
     const first = dialogRef.current?.querySelector('button, a, [tabindex]:not([tabindex="-1"])');
     first?.focus?.();
+  }, [open]);
+
+  // ✅ Empêche le scroll de fond quand le modal est ouvert
+  useEffect(() => {
+    if (open) document.body.classList.add("modal-open");
+    else document.body.classList.remove("modal-open");
+    return () => document.body.classList.remove("modal-open");
   }, [open]);
 
   return (
@@ -34,7 +44,9 @@ export default function Modal({ open, title, onClose, children, footer }) {
             ✕
           </button>
         </div>
+
         <div className='modal__body'>{children}</div>
+
         <div className='modal__footer'>
           {footer || (
             <button className='btn' onClick={onClose}>
