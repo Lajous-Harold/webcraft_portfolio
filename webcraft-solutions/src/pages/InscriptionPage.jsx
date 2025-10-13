@@ -1,6 +1,6 @@
 import Hero from "../components/Hero.jsx";
 import { useEffect, useMemo, useState } from "react";
-import useFetch from "../hooks/UseFetch.jsx";
+import useFetch from "../hooks/useFetch.jsx";
 import { validators } from "../utils/validation.js";
 
 const API_COURSES = "https://webcraft-api.vercel.app/data/courses.json";
