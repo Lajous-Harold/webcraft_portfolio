@@ -1,12 +1,12 @@
 # WebCraft Solutions – Portfolio (Front-end sans framework)
 
-Ce projet réalise un **portfolio interactif** pour l’agence _WebCraft Solutions_ en **HTML5 + CSS (Tailwind via CDN) + JavaScript natif (ES6 modules)**, sans framework.
+Ce projet réalise un **portfolio interactif** pour l’agence _WebCraft Solutions_ en **HTML5 + CSS + JavaScript natif (ES6 modules)**, sans framework.
 
 ---
 
 ## 🚀 Fonctionnalités
 
-- Chargement des projets via `fetch()` depuis l’API publique : `https://gabistam.github.io/Demo_API/data/projects.json`
+- Chargement des projets via `fetch()`
 - Filtrage dynamique par **technologie** (sans rechargement)
 - **Modal** accessible (focus trap, `Esc`, overlay, `aria-*`)
 - **Loader**, gestion des erreurs réseau, messages utilisateur
@@ -25,24 +25,12 @@ Ce projet réalise un **portfolio interactif** pour l’agence _WebCraft Solutio
 ├── about.html
 ├── contact.html
 ├── js/
-│   ├── app.js
-│   ├── api.js
-│   ├── modal.js
-│   ├── state.js
-│   ├── ui.js
-│   └── form.js
-├── assets/
-│   └── img/
-│       ├── logo.jfif
-│       ├── hero-placeholder.jfif
-│       ├── about-placeholder.jfif
-│       ├── team1.jfif
-│       ├── team2.jfif
-│       └── team3.jfif
+│   └── main.js
+├── css/
+│   └── style.css
 └── w3c/
-    ├── capture1.png  (index.html)
-    ├── capture2.png  (contact.html)
-    └── capture3.png  (about.html)
+    ├── validation-index.png  (index.html)
+    └── validation-inscription.png  (inscription.html)
 ```
 
 ---
@@ -58,28 +46,15 @@ Aucun build requis (Tailwind via **CDN**).
 
 ## ✅ Validation W3C
 
-Les trois pages **passent sans erreur ni warning** (Nu Html Checker). Captures :
+Les deux pages **passent sans erreur ni warning** (Nu Html Checker). Captures :
 
 ### index.html
 
-![W3C validation — index](w3c/Capture1.PNG)
+![W3C validation — index](w3c/validation-index.PNG)
 
-### contact.html
+### inscription.html
 
-![W3C validation — contact](w3c/Capture2.PNG)
-
-### about.html
-
-![W3C validation — about](w3c/Capture3.PNG)
-
----
-
-## 📐 Bonnes pratiques clés
-
-- **Accessibilité** : skip-link, rôles ARIA, `aria-live`, focus visible, fermeture `Esc`
-- **Performance** : lazy loading images, une seule requête API (puis filtrage en mémoire)
-- **Qualité JS** : ES6 modules, `try/catch`, `response.ok`, messages d’erreur clairs
-- **Responsive** : grilles fluides, header sticky, contrôles tactiles ok
+![W3C validation — contact](w3c/validation-inscription.PNG)
 
 ---
 
